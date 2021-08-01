@@ -24,7 +24,7 @@ class DateService
     /**
      * Возвращает диапазон дат с учетом возможного позднего прибытия,
      * если $laterArrival==true, то вчерашний день тоже считается если текущий по времени
-     * от 0 до 3 часов утра
+     * от 0 до 3 часов утра есть окно
      * @param bool $laterArrival
      * @return array
      * @throws \Exception

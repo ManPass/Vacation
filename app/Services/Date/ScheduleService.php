@@ -89,7 +89,7 @@ class ScheduleService{
                 if ($dateTime->format('D') == 'Sat' && $priceByDate->weekend_price != 0) continue;
 
 
-                    //если это пятница и weekend_price есть, то присвоить эту цену
+                    //если это пятница и weekend_price есть, то присвоить цену
                 if($dateTime->format('D') == 'Fri'&& $priceByDate->weekend_price != 0 &&
                     $house->isDayBusy($dateTime->format('Y-m-d')) != 0){
                     $schedule[$house->name][] = [1,$house->id,'занято',$date];
