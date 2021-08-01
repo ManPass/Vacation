@@ -1,0 +1,41 @@
+body{
+    background: #f7fafc;
+}
+.scrollable{
+    height: 500px;
+    overflow: scroll;
+}
+table {
+    table-layout: auto; /* Фиксированная ширина ячеек */
+}
+.col { width: 160px; }
+.coln { width: 60px; }
+
+.date-container{
+    width: 500px;
+}
+
+.inner-text{
+    line-height: 10px;
+    padding-top: 5px;
+    padding-bottom: 1px;
+}
+.inputs{
+    padding-top: 10px;
+    line-height: 1px;
+}
+.inner-input-container{
+    width: 235px;
+
+}
+.inner-input-line{
+    display: flex;
+    margin: 0 -5px;
+}
+.item {
+    flex: 1 1 auto;
+    margin: 0 5px;
+}
+
+
+
