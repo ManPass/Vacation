@@ -3,14 +3,10 @@
 namespace App\Models;
 
 use App\Services\Date\DateService;
-use App\Services\Date\DateUnit;
-use App\Services\Date\ScheduleService;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Http\Request;
 
 use DateTime;
 
@@ -66,8 +62,8 @@ class House extends Model
         foreach($busyDays as $range) {
             $dateIn = $range['date_in'];
             $dateOut = $range['date_out'];
-            if (ScheduleService::isSchedulesOverlap($dateInOrder,$dateOutOrder,$dateIn,$dateOut) ||
-                ScheduleService::isSchedulesOverlap($dateIn,$dateOut,$dateInOrder,$dateOutOrder)) return false;
+            if (DateService::isSchedulesOverlap($dateInOrder,$dateOutOrder,$dateIn,$dateOut) ||
+                DateService::isSchedulesOverlap($dateIn,$dateOut,$dateInOrder,$dateOutOrder)) return false;
         }
         return true;
     }
@@ -110,11 +106,6 @@ class House extends Model
     {
         return $this->orders()->select('date_in', 'date_out')->get();
     }
-    //Вынести в DateService
-    public function isDayBusy($date){
-
-        return count($this->orders()->whereDate('date_in','<=',$date)->whereDate('date_out','>',$date)->get());
-    }
 
     /**
      * нахождение цены по заданной дате для домика
@@ -122,15 +113,13 @@ class House extends Model
      * @return Collection
      * @throws \Exception
      */
-    //Вынести в DateService
     public function getPriceByDate($date){
         //привести любую $date к понедельнику и найти через запрос цену
         $date = new DateTime($date);
         $weekStart = $date->modify('-'.($date->format('N')-1).' day')->format('Y-m-d');
         return $this->dates()->where('week_start','=',$weekStart)->select('weekday_price','weekend_price')->get()->first();
     }
-    //Вынести в DateService
-    public function isDayInDiapason($date)
+    public function isDayReserved($date): int
     {
         return count($this->orders()->whereDate('date_in', '<=', $date)->whereDate('date_out', '>', $date)->get());
     }
