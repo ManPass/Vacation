@@ -16,6 +16,8 @@ class DatabaseSeeder extends Seeder
         $this->call([
             HouseSeeder::class,
             DateSeeder::class,
-            PriceSeeder::class]);
+            PriceSeeder::class,
+            RoleSeeder::class,
+            UsersSeeder::class]);
     }
 }
